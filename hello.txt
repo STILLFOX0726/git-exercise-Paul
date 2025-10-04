@@ -1,1 +1,3 @@
 hello.txt
+Hello, this is JOHN PAUL, TAGUINOD learning Git!
+
