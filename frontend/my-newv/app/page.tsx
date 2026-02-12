@@ -10,9 +10,13 @@ import { Card } from "@/components/ui/card"
 export default function Home() {
   const [selectedTab, setSelectedTab] = useState("upload")
   const [uploadedFile, setUploadedFile] = useState<string | null>(null)
-  const [detectResults, setDetectResults] = useState<any>(null)
+  const [detectResults, setDetectResults] = useState<{
+    aiScore: number
+    confidence: number
+    status: string
+    details: { paragraphs: number; aiProbability: number; humanProbability: number }
+  } | null>(null)
   const [copied, setCopied] = useState(false)
-  const [hoveredNav, setHoveredNav] = useState<string | null>(null)
 
   const handleFileUpload = (e: React.ChangeEvent<HTMLInputElement>) => {
     const file = e.target.files?.[0]
@@ -116,33 +120,23 @@ export default function Home() {
               <a
                 href="#"
                 className="nav-link-highlight text-sm font-medium text-white/80"
-                onMouseEnter={() => setHoveredNav("features")}
-                onMouseLeave={() => setHoveredNav(null)}
               >
                 Features
               </a>
               <a
                 href="#"
                 className="nav-link-highlight text-sm font-medium text-white/80"
-                onMouseEnter={() => setHoveredNav("pricing")}
-                onMouseLeave={() => setHoveredNav(null)}
               >
                 Pricing
               </a>
               <a
                 href="#"
                 className="nav-link-highlight text-sm font-medium text-white/80"
-                onMouseEnter={() => setHoveredNav("docs")}
-                onMouseLeave={() => setHoveredNav(null)}
               >
                 Docs
               </a>
-              <Button
-                size="sm"
-                className="rounded-full shadow-md hover:shadow-lg transition-all duration-300 bg-gradient-to-r from-pink-500 to-magenta-600 hover:from-pink-600 hover:to-magenta-700 text-white border-0"
-              >
-                Sign In
-              </Button>
+              
+          
             </nav>
           </div>
         </div>
@@ -160,14 +154,14 @@ export default function Home() {
           </div>
 
           <div className="flex flex-col items-center text-center">
-            <h2 className="mb-4 text-5xl font-bold tracking-tight text-white text-center w-full">
-              <span style={{ color: "oklch(59.1% 0.293 322.896)" }}>Scam</span> or Not{" "}
+            <h2 className="mb-4 text-5xl font-bold tracking-tight text-white text-center w-full mx-auto">
+              <span style={{ color: "oklch(59.1% 0.293 322.896)" }}>Scam</span>{" "}or{" "}Not{" "}
               <span className="bg-gradient-to-r from-magenta-400 via-magenta-500 to-magenta-600 bg-clip-text text-transparent">
                 Scam
               </span>
             </h2>
             <p className="mx-auto max-w-2xl text-xl text-white/80 leading-relaxed">
-              Upload files or paste links to analyze content authenticity with precision. Know what's real.
+              Upload files or paste links to analyze content authenticity with precision. Know what&apos;s real.
             </p>
           </div>
         </div>
@@ -195,7 +189,7 @@ export default function Home() {
                   </div>
                   <div>
                     <p className="font-semibold text-white text-lg">Drag and drop your file</p>
-                    <p className="text-sm text-white/70 mt-1">Supports .txt, .pdf, .docx files</p>
+                    <p className="text-sm text-white/70 mt-1">Video file, URL</p>
                   </div>
                   <input
                     type="file"
